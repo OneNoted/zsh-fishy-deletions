@@ -61,7 +61,7 @@ export ZSH_FISHY_WORD_CHARS_EXCLUDE="\/=&;"
 1. **[zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)** (Grey ghost text)
 2. **[zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)** (Colors as you type)
 3. **[zsh-abbr](https://github.com/olets/zsh-abbr)** (Fish-style abbreviations)
-4. **[zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search)** / **[[atuin]](https://github.com/atuinsh/atuin) (Up arrow filters history)
+4. **[zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search)** / **[atuin](https://github.com/atuinsh/atuin)** (Up arrow filters history)
 
 ## License
 
