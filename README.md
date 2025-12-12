@@ -1,6 +1,6 @@
 # zsh-fishy-deletions
 
-**Make Zsh feel like Fish.**
+**Make navigating Zsh feel like Fish.**
 
 The Fish shell is great, though, sometimes the lack of POSIX compliance is kinda annoying. I couldn't find any plugins out there that added fish's intuitive line-editing, so I just threw this together. It's super simple and probably suboptimal, but uhh good enough!!
 
@@ -56,14 +56,12 @@ Default: `\/=&;!#%^(){}<>`
 export ZSH_FISHY_WORD_CHARS_EXCLUDE="\/=&;" 
 ```
 
-## Some other fish plugins
-
-Here are some other great plugins
+## Some other plugins to make zsh more like fish
 
 1. **[zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)** (Grey ghost text)
 2. **[zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)** (Colors as you type)
 3. **[zsh-abbr](https://github.com/olets/zsh-abbr)** (Fish-style abbreviations)
-4. **[zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search)** (Up arrow filters history)
+4. **[zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search)** / **[atuin](https://github.com/atuinsh/atuin)** (Up arrow searches history)
 
 ## License
 
