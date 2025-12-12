@@ -13,7 +13,6 @@
 
 _fishy_backward_kill_word() {
     emulate -L zsh
-    # Remove specified chars from WORDCHARS to stop deletion at them
     local WORDCHARS=${WORDCHARS//[$ZSH_FISHY_WORD_CHARS_EXCLUDE]/}
     zle backward-kill-word
 }
@@ -27,7 +26,7 @@ _fishy_kill_word() {
 zle -N _fishy_kill_word
 
 
-# Fish-like Directory Navigation
+# Fish Directory Navigation
 
 
 setopt AUTO_PUSHD
@@ -60,6 +59,17 @@ dirh() {
     dirs -v
 }
 
+_fishy_prevd() {
+    prevd
+    zle reset-prompt
+}
+zle -N _fishy_prevd
+
+_fishy_nextd() {
+    nextd
+    zle reset-prompt
+}
+zle -N _fishy_nextd
 
 # Key Bindings
 
@@ -74,10 +84,10 @@ if [[ -z "$ZSH_FISHY_NO_BINDINGS" ]]; then
 
 
  
-    bindkey '^[[1;3D' prevd  # Alt+Left
-    bindkey '^[[1;3C' nextd  # Alt+Right
+    bindkey '^[[1;3D' _fishy_prevd  # Alt+Left
+    bindkey '^[[1;3C' _fishy_nextd  # Alt+Right
 
   
-    bindkey '^[^[[D'  prevd  # Alt+Left
-    bindkey '^[^[[C'  nextd  # Alt+Right
+    bindkey '^[^[[D'  _fishy_prevd  # Alt+Left
+    bindkey '^[^[[C'  _fishy_nextd  # Alt+Right
 fi
