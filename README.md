@@ -1,5 +1,7 @@
 # zsh-fishy-deletions
 
+*forgive the horrific naming and code*
+
 **Make navigating Zsh feel like Fish.**
 
 The Fish shell is great, though, sometimes the lack of POSIX compliance is kinda annoying. I couldn't find any plugins out there that added fish's intuitive line-editing, so I just threw this together. It's super simple and probably suboptimal, but uhh good enough!!
