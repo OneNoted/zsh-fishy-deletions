@@ -1,33 +1,26 @@
 # zsh-fishy-deletions
 
-*forgive the horrific naming and code*
-
-**Make navigating Zsh feel like Fish.**
-
-The Fish shell is great, though, sometimes the lack of POSIX compliance is kinda annoying. I couldn't find any plugins out there that added fish's intuitive line-editing, so I just threw this together. It's super simple and probably suboptimal, but uhh good enough!!
-
-The plugin adds a few features from fish that I really missed: **granular word deletion** and **directory history navigation**. *(that's probably what they're called? Right? Maybe?)*
-
-Combining this with the amazing `zsh-autosuggestions` and `zsh-syntax-highlighting` gets me close enough to what I'm used to to use zsh without having to change my ways.
+A Zsh plugin that brings Fish shell's word deletion and directory navigation to Zsh.
 
 ## Features
 
-### 1. Fish-like Word Deletion (`Ctrl+W` / `Alt+Del`)
+### Word Deletion (`Ctrl+W` / `Alt+Backspace` / `Alt+D` / `Alt+Delete`)
 
-In standard Zsh, `Ctrl+W` often deletes entire paths like `~/.config/fish/config.fish`.
-**zsh-fishy-deletions** changes this to match Fish's behavior:
+Standard Zsh treats entire paths as a single word — `Ctrl+W` on `~/.config/fish/config.fish` deletes the whole thing. This plugin makes deletion granular, matching Fish's behavior:
 
-* Stops deletion at directory separators (`/`).
-* Stops at shell syntax characters (`=`, `&`, `;`, `|`).
-* **Preserves** dots (`.`) and hyphens (`-`), so filenames like `my-script.sh` aren't preserved or something.
+- Stops at directory separators (`/`)
+- Stops at shell syntax characters (`=`, `&`, `;`, `!`, `#`, `%`, `^`, `(`, `)`, `{`, `}`, `<`, `>`)
+- Preserves dots (`.`) and hyphens (`-`) within filenames
 
-### 2. Directory Navigation (`Alt+Left` / `Alt+Right`)
+### Directory Navigation (`Alt+Left` / `Alt+Right`)
 
-Navigate your directory history quicker.
+Navigate your directory history with keybindings:
 
-* **`prevd` (Alt+Left):** Go back to the previous directory you were in.
-* **`nextd` (Alt+Right):** Go forward again.
-* **`dirh`:** View your session's directory history.
+| Command | Keybinding | Description |
+|---------|------------|-------------|
+| `prevd` | `Alt+Left` | Go to the previous directory |
+| `nextd` | `Alt+Right` | Go to the next directory |
+| `dirh` | — | Print directory history |
 
 ## Installation
 
@@ -37,33 +30,49 @@ Navigate your directory history quicker.
 zinit load OneNoted/zsh-fishy-deletions
 ```
 
+### Manual
+
+Source the plugin file in your `.zshrc`:
+
+```zsh
+source /path/to/zsh-fishy-deletions.plugin.zsh
+```
+
 ## Configuration
 
-You can customize the behavior by setting these variables **before** loading the plugin.
+Set these variables **before** loading the plugin.
 
-### Disable Keybindings
-
-If you prefer to map the keys yourself:
+### Disable Default Keybindings
 
 ```zsh
 export ZSH_FISHY_NO_BINDINGS=1
 ```
 
-### Custom Word Separators
-
-Change which characters stop the deletion cursor.
-Default: `\/=&;!#%^(){}<>`
+Then bind the widgets yourself:
 
 ```zsh
-export ZSH_FISHY_WORD_CHARS_EXCLUDE="\/=&;" 
+bindkey '^W' _fishy_backward_kill_word
+bindkey '^[d' _fishy_kill_word
+bindkey '^[[1;3D' _fishy_prevd
+bindkey '^[[1;3C' _fishy_nextd
 ```
 
-## Some other plugins to make zsh more like fish
+### Custom Word Separators
 
-1. **[zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)** (Grey ghost text)
-2. **[zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)** (Colors as you type)
-3. **[zsh-abbr](https://github.com/olets/zsh-abbr)** (Fish-style abbreviations)
-4. **[zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search)** / **[atuin](https://github.com/atuinsh/atuin)** (Up arrow searches history)
+Override which characters act as word boundaries (default: `\/=&;!#%^(){}<>`):
+
+```zsh
+export ZSH_FISHY_WORD_CHARS_EXCLUDE="\/=&;"
+```
+
+## Related Plugins
+
+Other plugins that bring Fish-like behavior to Zsh:
+
+- [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) — ghost text suggestions
+- [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) — syntax coloring as you type
+- [zsh-abbr](https://github.com/olets/zsh-abbr) — Fish-style abbreviations
+- [zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search) / [atuin](https://github.com/atuinsh/atuin) — history substring search
 
 ## License
 

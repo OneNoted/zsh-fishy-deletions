@@ -2,14 +2,11 @@
 # https://github.com/OneNoted/zsh-fishy-deletions
 # License: MIT
 
-# Configuration
-
+# --- Configuration ---
 
 : ${ZSH_FISHY_WORD_CHARS_EXCLUDE:="\/=&;!#%^(){}<>"}
 
-
-# Fish-like Word Deletion
-
+# --- Fish-like Word Deletion ---
 
 _fishy_backward_kill_word() {
     emulate -L zsh
@@ -25,15 +22,9 @@ _fishy_kill_word() {
 }
 zle -N _fishy_kill_word
 
+# --- Fish-like Directory Navigation ---
 
-# Fish Directory Navigation
-
-
-setopt AUTO_PUSHD
-setopt PUSHD_IGNORE_DUPS
-setopt PUSHD_SILENT
-setopt PUSHD_TO_HOME
-
+setopt AUTO_PUSHD PUSHD_IGNORE_DUPS PUSHD_SILENT PUSHD_TO_HOME
 
 prevd() {
     emulate -L zsh
@@ -44,7 +35,6 @@ prevd() {
     fi
 }
 
-
 nextd() {
     emulate -L zsh
     if [[ ${#dirstack} -gt 0 ]]; then
@@ -54,10 +44,7 @@ nextd() {
     fi
 }
 
-
-dirh() {
-    dirs -v
-}
+dirh() { dirs -v; }
 
 _fishy_prevd() {
     prevd
@@ -71,23 +58,18 @@ _fishy_nextd() {
 }
 zle -N _fishy_nextd
 
-# Key Bindings
-
+# --- Key Bindings ---
 
 if [[ -z "$ZSH_FISHY_NO_BINDINGS" ]]; then
+    # Word deletion
+    bindkey '^W'       _fishy_backward_kill_word  # Ctrl+W
+    bindkey '^[^?'     _fishy_backward_kill_word  # Alt+Backspace
+    bindkey '^[d'      _fishy_kill_word           # Alt+D
+    bindkey '^[[3;3~'  _fishy_kill_word           # Alt+Delete
 
-
-    bindkey '^W'       _fishy_backward_kill_word    # Ctrl+W
-    bindkey '^[^?'     _fishy_backward_kill_word    # Alt+Backspace
-    bindkey '^[d'      _fishy_kill_word             # Alt+D
-    bindkey '^[[3;3~'  _fishy_kill_word             # Alt+Delete
-
-
- 
-    bindkey '^[[1;3D' _fishy_prevd  # Alt+Left
-    bindkey '^[[1;3C' _fishy_nextd  # Alt+Right
-
-  
-    bindkey '^[^[[D'  _fishy_prevd  # Alt+Left
-    bindkey '^[^[[C'  _fishy_nextd  # Alt+Right
+    # Directory navigation
+    bindkey '^[[1;3D'  _fishy_prevd               # Alt+Left
+    bindkey '^[[1;3C'  _fishy_nextd               # Alt+Right
+    bindkey '^[^[[D'   _fishy_prevd               # Alt+Left  (alternate)
+    bindkey '^[^[[C'   _fishy_nextd               # Alt+Right (alternate)
 fi
